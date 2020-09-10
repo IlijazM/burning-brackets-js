@@ -229,6 +229,32 @@ You can manipulate the return value by adapting the ``startValue``.
 10..do(0, i => i); // 45
 ```
 
+#### ( Array | String | Number ) .prototype.progress
+
+```javascript
+array.progress(fun)
+string.progress(fun)
+number.progress(fun)
+```
+
+This will create a loop and call ``fun`` with the following parameters:\
+
+``iv``: the current value of the string or array or the max value of the number.\
+``i``: the current index.\
+``progress``: The progress between 0 and 1.
+
+##### Practical Use Cases
+
+```javascript
+5..progress((maxValue, i, progress) => console.log(progress)); // 0, 0.25, 0.5, 0.75, 1
+```
+
+```javascript
+['♠', '♣', 'red:', '♥', '♦'].progress((card, i, progress) => {
+    if (progress !== 0.5) console.log(card);
+}); // ♠, ♣, ♥, ♦
+```
+
 ### Array
 
 #### Array.first

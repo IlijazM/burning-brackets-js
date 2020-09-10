@@ -97,6 +97,28 @@ Array.prototype.do = function (res, fun) {
 String.prototype.do = function (res, fun) {
     return this.split("").do(res, fun)
 }
+
+Number.prototype.progress = function (fun) {
+    if (this <= 0) return
+    this.for(i => {
+        const progress = i / (this - 1)
+        fun(this, i, progress)
+    })
+}
+
+String.prototype.progress = function (fun) {
+    this.asArray.forEach((str, i) => {
+        const progress = i / (this.length - 1)
+        fun(str, i, progress)
+    })
+}
+
+Array.prototype.progress = function (fun) {
+    this.forEach((iv, i) => {
+        const progress = i / (this.length - 1)
+        fun(iv, i, progress)
+    })
+}
 //#endregion
 
 //#region Insert
