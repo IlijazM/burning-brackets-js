@@ -142,6 +142,20 @@ Object.defineProperty(Array.prototype, 'last', {
     get: function () { return this[this.length - 1] },
 })
 
+Array.prototype.add = function (...args) {
+    args.forEach(i => {
+        if (i instanceof Array) {
+            i.forEach(j => {
+                this.push(j)
+            })
+        } else {
+            this.push(i)
+        }
+    })
+
+    return this
+}
+
 Array.prototype.copyFrom = function (source) {
     for (var i = 0; i < source.length; i++) {
         this[i] = source[i]
@@ -236,10 +250,9 @@ function defineProperyAll() {
                 if (!covered.includes(prototype)) {
                     const isFunction = isPrototypeFunction(type, prototype)
                     if (isFunction) {
-                        fun = `${prototype}: (...args) => this.map(v => { try { return v.${prototype}(...args) } catch { return v } }),`
+                        fun = `${prototype}: (...args)=>this.map(v=>{try{return v.${prototype}(...args)}catch{return v}}),`
                     } else {
-                        fun = `get ${prototype}() { return this.that.map(v => v.${prototype}) },
-                           set ${prototype}(v) { this.that.map(_ => { _.${prototype} = v }) },`
+                        fun = `get ${prototype}(){return this.that.map(v=>v.${prototype})},set ${prototype}(v){this.that.map(_=>{_.${prototype}=v})},`
                     }
 
                     covered.push(prototype)
@@ -251,19 +264,7 @@ function defineProperyAll() {
         })
     })
 
-    const code = `Object.defineProperty(Array.prototype, 'all', {
-        get() {
-            return {
-                that: this,
-                ${functions.join("\n")}
-            }
-        },
-        set(v) {
-            for (let i = 0; i < this.length; i++) {
-                this[i] = v
-            }
-        }
-    })`
+    const code = `Object.defineProperty(Array.prototype, 'all', {get(){return{that:this,${functions.join("\n")}}},set(v){for(let i=0;i<this.length;i++){this[i]=v}}})`
     return code
 }
 

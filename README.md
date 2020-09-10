@@ -239,8 +239,8 @@ number.progress(fun)
 
 This will create a loop and call ``fun`` with the following parameters:\
 
-``iv``: the current value of the string or array or the max value of the number.\
-``i``: the current index.\
+``iv``: The current value of the string or array or the max value of the number.\
+``i``: The current index.\
 ``progress``: The progress between 0 and 1.
 
 ##### Practical Use Cases
@@ -275,6 +275,26 @@ This will create a loop and call ``fun`` with the following parameters:\
 ['🐈', '🐔', '🐤', '🐖'].random; // Will return a random entry of the array
 ```
 
+#### Array.prototype.add
+
+```javascript
+array.add(...args)
+```
+
+Pushes ``args`` into the array. If an argument is an array as well, the content of the array will get joined.
+
+##### Practical Use Cases
+
+```javascript
+let a = [];
+
+a.add(1);
+a.add(2, 3, 4);
+a.add(5, 6, [7, 8, 9]);
+
+// a: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
 #### Array.prototype.copyFrom
 
 ```javascript
@@ -283,7 +303,7 @@ array.copyFrom(other)
 
 This will create a clone of the array ``other``
 
-#### Practical Use Cases
+##### Practical Use Cases
 
 ```javascript
 const array = ['😁', '😋', '🙄'];
@@ -348,7 +368,7 @@ string.toArray()
 
 This will convert the string to a char array.
 
-##### Practical Use Case
+##### Practical Use Cases
 
 ```javascript
 'ABCD'.toArray(); // ['A', 'B', 'C', 'D']
