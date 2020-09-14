@@ -1,15 +1,43 @@
 let isModule = false
 
 try {
-    module.exports = {}
+    module.exports = {
+    }
     isModule = true
 } catch { }
 
 //#region HTMLElement
+
+var query
+
 if (!isModule) {
     Object.defineProperty(HTMLElement.prototype, 'html', {
         get: function () { return this.innerHTML },
         set: function (value) { this.innerHTML = value }
+    });
+
+    HTMLElement.prototype.setTag = function (tagName) {
+        const uniqueClassName = 20..do('_', () => {
+            return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.random
+        })
+
+        this.addClass(uniqueClassName)
+
+        this.tag = tagName
+
+        const element = document.query('.' + uniqueClassName)
+        element.removeClass(uniqueClassName)
+        return element
+    }
+
+    Object.defineProperty(HTMLElement.prototype, 'tag', {
+        get: function () { return this.tagName },
+        set: function (newTagName) {
+            let { outerHTML, tagName } = this
+
+            outerHTML = '<' + newTagName + outerHTML.substring(1 + tagName.length, outerHTML.length - tagName.length - 1) + newTagName + '>'
+            this.outerHTML = outerHTML
+        },
     });
 
     Object.defineProperty(HTMLElement.prototype, 'x', {
@@ -59,7 +87,11 @@ if (!isModule) {
     HTMLDocument.prototype.queryAll = function (selector) {
         return Array.from(document.querySelectorAll(selector))
     }
+
+    query = document.query
+    queryAll = document.queryAll
 }
+
 //#endregion
 
 //#region Loops

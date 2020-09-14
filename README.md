@@ -118,6 +118,23 @@ element.containsClass(className)
 
 Is a shorter version of ``element.classList``
 
+#### HTMLElement.tag & HTMLElement.prototype.setTag
+
+```javascript
+element.tag
+element.setTag(tagName)
+```
+
+This will provide the ability to not only get, but also set the tag name of an element. If you use ``element.tag`` however, the variable ``element`` will no longer point to the right element. To overcome this you must use ``element.setTag``. This will return the proper element.
+
+```javascript
+document.query('div').setTag('h1').html += '!';
+```
+
+```javascript
+document.queryAll('b').all.setTag('p').all.addClass('bold');
+```
+
 #### HTMLElement.prototype.query
 
 ```javascript
@@ -429,7 +446,7 @@ console.log(array); // ['A', 'B', 'C', 'D']
 ['🥇', '🥈', '🥉'].random; // will return a random entry from the array
 ```
 
-### Array.all
+### All
 
 ```javascript
 array.all
