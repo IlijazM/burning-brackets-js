@@ -349,6 +349,20 @@ string.append(str)
 "Hello, world".append("!"); // "Hello, world!"
 ```
 
+#### String.prototype.toClipboard
+
+```javascript
+string.toClipboard()
+```
+
+This will copy the string to the clients clipboard.
+
+##### Practical Use Cases
+
+```javascript
+document.query('#snippet').html.toClipboard()
+```
+
 ### Insert
 
 #### Array.prototype.insert

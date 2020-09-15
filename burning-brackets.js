@@ -207,6 +207,20 @@ String.prototype.toElement = function () {
 String.prototype.append = function (str) {
     return this + str
 }
+
+String.prototype.toClipboard = function () {
+    let element = document.createElement('input')
+    document.body.append(element)
+
+    element.value = this
+
+    element.select()
+    element.setSelectionRange(0, 99999)
+
+    document.execCommand('copy')
+
+    document.body.removeChild(element)
+}
 //#endregion
 
 //#region as/to Array/String
