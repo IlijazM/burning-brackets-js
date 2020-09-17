@@ -363,6 +363,14 @@ This will copy the string to the clients clipboard.
 document.query('#snippet').html.toClipboard()
 ```
 
+#### String.protoype.replaceEach
+
+```javascript
+string.replaceEach(string, replacement)
+```
+
+``replaceEach`` is a replacement for ``String.prototype.replaceAll`` because of compatibility issues.
+
 ### Insert
 
 #### Array.prototype.insert

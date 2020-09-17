@@ -221,6 +221,10 @@ String.prototype.toClipboard = function () {
 
     document.body.removeChild(element)
 }
+
+String.prototype.replaceEach = function (original, replacement) {
+    return this.split(original).join(replacement)
+}
 //#endregion
 
 //#region as/to Array/String
