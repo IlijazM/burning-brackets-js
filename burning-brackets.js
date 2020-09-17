@@ -222,8 +222,8 @@ String.prototype.toClipboard = function () {
     document.body.removeChild(element)
 }
 
-String.prototype.replaceEach = function (original, replacement) {
-    return this.split(original).join(replacement)
+String.prototype.replaceEach = function (search, replacement) {
+    return this.split(search).join(replacement ?? '')
 }
 //#endregion
 
@@ -256,7 +256,7 @@ Object.defineProperty(String.prototype, 'random', {
 })
 //#endregion
 
-function defineProperyAll() {
+function definePropertyAll() {
     function getSupportedTypes() {
         let types = ["Number", "String", "Array"]
         if (!isModule) {
@@ -318,4 +318,4 @@ function defineProperyAll() {
     return code
 }
 
-eval(defineProperyAll())
+eval(definePropertyAll())

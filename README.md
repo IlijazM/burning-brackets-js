@@ -366,10 +366,10 @@ document.query('#snippet').html.toClipboard()
 #### String.protoype.replaceEach
 
 ```javascript
-string.replaceEach(string, replacement)
+string.replaceEach(search, replacement)
 ```
 
-``replaceEach`` is a replacement for ``String.prototype.replaceAll`` because of compatibility issues.
+``replaceEach`` is a replacement for ``String.prototype.replaceAll`` because of compatibility issues. ``replacement`` defaults to an empty string.
 
 ### Insert
 
