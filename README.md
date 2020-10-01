@@ -371,6 +371,29 @@ string.replaceEach(search, replacement)
 
 ``replaceEach`` is a replacement for ``String.prototype.replaceAll`` because of compatibility issues. ``replacement`` defaults to an empty string.
 
+### Number
+
+#### Number.prototype.minmax
+```javascript
+number.minmax(min, max)
+number.minmax(max)
+```
+
+This will set boundaries on the number and return the result.
+
+When only specifiying one parameter, the minimum automatically gets set to 0.
+
+When `max` is smaller than `min`, `min` and `max` get swapped automatically.
+
+```javascript
+10..minmax(0, 20);    //10
+10..minmax(20, 30);   //20
+10..minmax(0, 5);     //5
+(-15).minmax(-10, 0); //-10
+(-5).minmax(10, 0);   //0
+(-5).minmax(-20);     //-5
+```
+
 ### Insert
 
 #### Array.prototype.insert

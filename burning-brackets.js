@@ -227,6 +227,19 @@ String.prototype.replaceEach = function (search, replacement) {
 }
 //#endregion
 
+//#region Number
+
+Number.prototype.minmax = function(min, max) {
+    if (max === undefined) {
+        max = min
+        min = 0
+    }
+    if (max < min) [max,min] = [min,max]
+    return Math.min(max, Math.max(min, this))
+}
+
+//#endregion
+
 //#region as/to Array/String
 String.prototype.toArray = function () {
     return this.split("")
