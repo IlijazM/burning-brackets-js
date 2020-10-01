@@ -6,7 +6,7 @@ burning-brackets.js is a javascript utility library for simplifying code. It wil
 ```javascript
 let array = ['Remove_all', 'these_underscores'];
 
-array = array.all.replaceAll('_', ' '); // ['Remove all', 'these underscores']
+array = array.all.replaceEach('_', ' '); // ['Remove all', 'these underscores']
 
 // old way:
 array = array.map(entry => entry.replaceAll('_', ' '));
