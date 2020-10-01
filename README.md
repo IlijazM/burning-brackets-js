@@ -394,6 +394,23 @@ When `max` is smaller than `min`, `min` and `max` get swapped automatically.
 (-5).minmax(-20);     //-5
 ```
 
+#### Number.prototype.map
+```javascript
+number.map(inMin, inMax, outMin, outMax)
+number.map(inMax, outMax)
+```
+
+This will map a number from one scale into another.
+
+`inMin` and `outMin` default to 0.
+
+```javascript
+5..map(0, 10, 0, 50);      //25
+5..map(10, 50);            //25
+(-10).map(-15, -5, 0, 5);  //2.5
+5..map(10, 20, 100, 150);  //25
+```
+
 ### Insert
 
 #### Array.prototype.insert

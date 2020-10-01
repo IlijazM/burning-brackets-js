@@ -238,6 +238,18 @@ Number.prototype.minmax = function(min, max) {
     return Math.min(max, Math.max(min, this))
 }
 
+Number.prototype.map = function(inMin, inMax, outMin, outMax) {
+    if (outMin === undefined && outMax === undefined) {
+        outMax = inMax
+        inMax = inMin
+        outMin = 0
+        inMin = 0
+    }
+    inMin = inMin ?? 0
+    outMin = outMin ?? 0
+    return ((this - inMin)/(inMax - inMin) * (outMax)) + outMin
+}
+
 //#endregion
 
 //#region as/to Array/String
