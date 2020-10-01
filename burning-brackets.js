@@ -250,6 +250,15 @@ Number.prototype.map = function(inMin, inMax, outMin, outMax) {
     return ((this - inMin)/(inMax - inMin) * (outMax)) + outMin
 }
 
+Number.prototype.mapminmax = function(inMin, inMax, outMin, outMax) {
+    if (outMin === undefined && outMax === undefined) {
+        inMax = inMin
+        inMin = 0
+    }
+    inMin = inMin ?? 0
+    return this.minmax(inMin, inMax).map(...arguments)
+}
+
 //#endregion
 
 //#region as/to Array/String

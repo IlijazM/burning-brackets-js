@@ -411,6 +411,19 @@ This will map a number from one scale into another.
 5..map(10, 20, 100, 150);  //25
 ```
 
+#### Number.prototype.mapminmax
+```javascript
+number.mapminmax(inMin, inMax, outMin, outMax)
+number.mapminmax(inMax, outMax)
+```
+
+Same as `Number.prototype.map`, but the input is constrained into the input range using `Number.prototype.map` automatically.
+
+```javascript
+5..map(10, 20, 100, 150);        //25
+5..mapminmax(10, 20, 100, 150);  //100
+```
+
 ### Insert
 
 #### Array.prototype.insert
