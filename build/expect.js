@@ -86,4 +86,3 @@ addExpectCondition({
     },
     failureMessage: 'to be a boolean.',
 });
-
