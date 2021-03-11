@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES3",
+    "outDir": "build",
+    "moduleResolution": "node",
+    "module": "CommonJS"
+  },
+  "typedocOptions": {
+    "entryPoints": ["scripts"],
+    "out": "documentation"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"],
+}

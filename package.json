@@ -1,0 +1,29 @@
+{
+  "name": "burning-brackets",
+  "version": "0.1.0",
+  "description": "burning-brackets.js is a javascript utility library for simplifying code. It will shorten commonly used code and remove unnecessarily nested brackets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "dev": "tsc -w",
+    "tsc": "tsc",
+    "build": "tsc && node compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IlijazM/burning-brackets-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IlijazM/burning-brackets-js/issues"
+  },
+  "homepage": "https://github.com/IlijazM/burning-brackets-js#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "jest": "^26.5.0",
+    "minify": "^7.0.1",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.2.3"
+  }
+}
