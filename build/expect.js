@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.expect = void 0;
 /**
  * Stores all expect conditions including the currently using variable value and the variables
  * name.
  */
-var expectConditions = {
+let expectConditions = {
     /**
      * The value of the currently used variable to assert.
      */
@@ -25,11 +22,11 @@ var expectConditions = {
  *
  * @param variables the variables wrapped in a single object that gets asserted.
  */
-var expect = function (variables) {
+const expect = (variables) => {
     if (typeof variables !== 'object') {
         throw new Error('Expected a variable as an object.');
     }
-    var keys = Object.keys(variables);
+    const keys = Object.keys(variables);
     if (keys.length <= 0) {
         throw new Error('Expected a variable. Got none');
     }
@@ -37,7 +34,6 @@ var expect = function (variables) {
     expectConditions.varName = keys[0];
     return expectConditions;
 };
-exports.expect = expect;
 /**
  * Adds an expect condition.
  *
@@ -52,37 +48,64 @@ function addExpectCondition(condition) {
         throw new Error('Failed adding a condition. The condition must not be null.');
     }
     if (['inputVariable', 'varName', 'not', 'either'].includes(condition.name)) {
-        throw new Error("Failed adding a condition. The conditions name must not be " + condition.name + ".");
+        throw new Error(`Failed adding a condition. The conditions name must not be ${condition.name}.`);
     }
-    expectConditions[condition.name] = function (compareVariable) {
+    expectConditions[condition.name] = (compareVariable) => {
         if (!condition.condition(expectConditions.inputVariable, compareVariable) === true) {
-            throw new Error("Expected " + expectConditions.varName + " " + condition.failureMessage);
+            throw new Error(`Expected ${expectConditions.varName} ${condition.getFailureMessage(compareVariable)}`);
         }
     };
-    expectConditions.not[condition.name] = function (compareVariable) {
+    expectConditions.not[condition.name] = (compareVariable) => {
         if (condition.condition(expectConditions.inputVariable, compareVariable) === true) {
-            throw new Error("Expected " + expectConditions.varName + " not " + condition.failureMessage);
+            throw new Error(`Expected ${expectConditions.varName} not ${condition.getFailureMessage(compareVariable)}`);
         }
     };
 }
 addExpectCondition({
+    name: 'toEqual',
+    condition(inputVariable, compareVariable) {
+        return inputVariable == compareVariable;
+    },
+    getFailureMessage: (compareVariable) => `to equal '${compareVariable}'`,
+});
+addExpectCondition({
+    name: 'toStrictlyEqual',
+    condition(inputVariable, compareVariable) {
+        return inputVariable === compareVariable;
+    },
+    getFailureMessage: (compareVariable) => `to strictly equal '${compareVariable}'`,
+});
+addExpectCondition({
+    name: 'toBe',
+    condition(inputVariable, compareVariable) {
+        return inputVariable === compareVariable;
+    },
+    getFailureMessage: (compareVariable) => `to be '${compareVariable}'`,
+});
+addExpectCondition({
     name: 'toBeNumber',
-    condition: function (inputVariable, compareVariable) {
+    condition(inputVariable, compareVariable) {
         return typeof inputVariable === 'number';
     },
-    failureMessage: 'to be a number.',
+    getFailureMessage: () => 'to be a number',
 });
 addExpectCondition({
     name: 'toBeString',
-    condition: function (inputVariable, compareVariable) {
+    condition(inputVariable, compareVariable) {
         return typeof inputVariable === 'string';
     },
-    failureMessage: 'to be a string.',
+    getFailureMessage: () => 'to be a string',
 });
 addExpectCondition({
     name: 'toBeBoolean',
-    condition: function (inputVariable, compareVariable) {
+    condition(inputVariable, compareVariable) {
         return typeof inputVariable === 'boolean';
     },
-    failureMessage: 'to be a boolean.',
+    getFailureMessage: () => 'to be a boolean',
 });
+// Export
+try {
+    exports.expect = expect;
+}
+catch (_a) { }
+//# sourceMappingURL=expect.js.map
