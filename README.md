@@ -6,7 +6,7 @@ burning-brackets.js is a javascript utility library for simplifying code. It wil
 ```javascript
 let array = ['Remove_all', 'these_underscores'];
 
-array = array.all.replaceAll('_', ' '); // ['Remove all', 'these underscores']
+array = array.all.replaceEach('_', ' '); // ['Remove all', 'these underscores']
 
 // old way:
 array = array.map(entry => entry.replaceAll('_', ' '));
@@ -361,6 +361,67 @@ This will copy the string to the clients clipboard.
 
 ```javascript
 document.query('#snippet').html.toClipboard()
+```
+
+#### String.protoype.replaceEach
+
+```javascript
+string.replaceEach(search, replacement)
+```
+
+``replaceEach`` is a replacement for ``String.prototype.replaceAll`` because of compatibility issues. ``replacement`` defaults to an empty string.
+
+### Number
+
+#### Number.prototype.minmax
+```javascript
+number.minmax(min, max)
+number.minmax(max)
+```
+
+This will set boundaries on the number and return the result.
+
+When only specifiying one parameter, the minimum automatically gets set to 0.
+
+When `max` is smaller than `min`, `min` and `max` get swapped automatically.
+
+```javascript
+10..minmax(0, 20);    //10
+10..minmax(20, 30);   //20
+10..minmax(0, 5);     //5
+(-15).minmax(-10, 0); //-10
+(-5).minmax(10, 0);   //0
+(-5).minmax(-20);     //-5
+```
+
+#### Number.prototype.map
+```javascript
+number.map(inMin, inMax, outMin, outMax)
+number.map(inMax, outMax)
+```
+
+This will map a number from one scale into another.
+
+`inMin` and `outMin` default to 0.
+
+```javascript
+5..map(0, 10, 0, 50);      //25
+5..map(10, 50);            //25
+(-10).map(-15, -5, 0, 5);  //2.5
+5..map(10, 20, 100, 150);  //25
+```
+
+#### Number.prototype.mapminmax
+```javascript
+number.mapminmax(inMin, inMax, outMin, outMax)
+number.mapminmax(inMax, outMax)
+```
+
+Same as `Number.prototype.map`, but the input is constrained into the input range using `Number.prototype.map` automatically.
+
+```javascript
+5..map(10, 20, 100, 150);        //25
+5..mapminmax(10, 20, 100, 150);  //100
 ```
 
 ### Insert
