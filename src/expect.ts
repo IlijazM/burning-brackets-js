@@ -47,7 +47,11 @@ interface IExpectCondition {
    *
    * <p>
    * The following possible prefixes that could get appended before the failure message:
+<<<<<<< HEAD
    * </p>
+=======
+   *  </p>
+>>>>>>> cce919bc626e48a90215cc8588d401b904a62c2b
    *
    * <ul>
    * <li> Expected {varName} </li>
