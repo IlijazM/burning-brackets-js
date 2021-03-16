@@ -24,14 +24,17 @@ let expectConditions = {
  */
 const expect = (variables) => {
     if (typeof variables !== 'object') {
-        throw new Error('Expected a variable as an object.');
+        expectConditions.inputVariable = variables;
+        expectConditions.varName = 'a variable';
     }
-    const keys = Object.keys(variables);
-    if (keys.length <= 0) {
-        throw new Error('Expected a variable. Got none');
+    else {
+        const keys = Object.keys(variables);
+        if (keys.length <= 0) {
+            throw new Error('Expected a variable. Got none');
+        }
+        expectConditions.inputVariable = variables[keys[0]];
+        expectConditions.varName = `'${keys[0]}'`;
     }
-    expectConditions.inputVariable = variables[keys[0]];
-    expectConditions.varName = keys[0];
     return expectConditions;
 };
 /**
@@ -90,6 +93,55 @@ addExpectCondition({
     getFailureMessage: () => 'to be a number',
 });
 addExpectCondition({
+    name: 'toBeInteger',
+    condition(inputVariable, compareVariable) {
+        return Number.isInteger(inputVariable);
+    },
+    getFailureMessage: () => 'to be an integer',
+});
+addExpectCondition({
+    name: 'toBeFinite',
+    condition(inputVariable, compareVariable) {
+        return Number.isFinite(inputVariable);
+    },
+    getFailureMessage: () => 'to be finite',
+});
+addExpectCondition({
+    name: 'toBeNaN',
+    condition(inputVariable, compareVariable) {
+        return Number.isNaN(inputVariable);
+    },
+    getFailureMessage: () => 'to be finite',
+});
+addExpectCondition({
+    name: 'toBePositive',
+    condition(inputVariable, compareVariable) {
+        return inputVariable >= 0;
+    },
+    getFailureMessage: () => 'to be positive',
+});
+addExpectCondition({
+    name: 'toBeEvent',
+    condition(inputVariable, compareVariable) {
+        return inputVariable % 2 == 0;
+    },
+    getFailureMessage: () => 'to be even',
+});
+addExpectCondition({
+    name: 'toBeOdd',
+    condition(inputVariable, compareVariable) {
+        return inputVariable % 2 == 1;
+    },
+    getFailureMessage: () => 'to be odd',
+});
+addExpectCondition({
+    name: 'toBeDivisibleWith',
+    condition(inputVariable, compareVariable) {
+        return inputVariable % compareVariable == 0;
+    },
+    getFailureMessage: (compareVariable) => `to be divisible with ${compareVariable}`,
+});
+addExpectCondition({
     name: 'toBeString',
     condition(inputVariable, compareVariable) {
         return typeof inputVariable === 'string';
@@ -97,11 +149,81 @@ addExpectCondition({
     getFailureMessage: () => 'to be a string',
 });
 addExpectCondition({
+    name: 'toStartWith',
+    condition(inputVariable, compareVariable) {
+        return inputVariable.startsWith(compareVariable);
+    },
+    getFailureMessage: (compareVariable) => `to start with '${compareVariable}'`,
+});
+addExpectCondition({
+    name: 'toEndWith',
+    condition(inputVariable, compareVariable) {
+        return inputVariable.endsWith(compareVariable);
+    },
+    getFailureMessage: (compareVariable) => `to end with '${compareVariable}'`,
+});
+addExpectCondition({
+    name: 'toIncludes',
+    condition(inputVariable, compareVariable) {
+        return inputVariable.includes(compareVariable);
+    },
+    getFailureMessage: (compareVariable) => `to includes '${compareVariable}'`,
+});
+addExpectCondition({
+    name: 'toMatch',
+    condition(inputVariable, compareVariable) {
+        return compareVariable.test(inputVariable);
+    },
+    getFailureMessage: (compareVariable) => `to match '${compareVariable}'`,
+});
+addExpectCondition({
     name: 'toBeBoolean',
     condition(inputVariable, compareVariable) {
         return typeof inputVariable === 'boolean';
     },
     getFailureMessage: () => 'to be a boolean',
+});
+addExpectCondition({
+    name: 'toBeTrue',
+    condition(inputVariable, compareVariable) {
+        return inputVariable === true;
+    },
+    getFailureMessage: () => 'to be true',
+});
+addExpectCondition({
+    name: 'toBeFalse',
+    condition(inputVariable, compareVariable) {
+        return inputVariable === false;
+    },
+    getFailureMessage: () => 'to be false',
+});
+addExpectCondition({
+    name: 'toBeTruthy',
+    condition(inputVariable, compareVariable) {
+        return !!inputVariable;
+    },
+    getFailureMessage: () => 'to be truthy',
+});
+addExpectCondition({
+    name: 'toBeNull',
+    condition(inputVariable, compareVariable) {
+        return inputVariable === null;
+    },
+    getFailureMessage: () => 'to be null',
+});
+addExpectCondition({
+    name: 'toBeUndefined',
+    condition(inputVariable, compareVariable) {
+        return inputVariable === undefined;
+    },
+    getFailureMessage: () => 'to be undefined',
+});
+addExpectCondition({
+    name: 'toBeNullish',
+    condition(inputVariable, compareVariable) {
+        return inputVariable == null;
+    },
+    getFailureMessage: () => 'to be nullish',
 });
 // Export
 try {
