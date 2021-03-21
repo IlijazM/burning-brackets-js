@@ -44,15 +44,12 @@ const expect = (variables) => {
  * Also handles all other statement cases like ``not``.
  * </p>
  *
+ * @requires condition to not be null
+ * @requires condition to not have a name that is set in `expectConditions` already.
+ *
  * @param condition the expect condition to add.
  */
 function addExpectCondition(condition) {
-    if (condition == null) {
-        throw new Error('Failed adding a condition. The condition must not be null.');
-    }
-    if (['inputVariable', 'varName', 'not', 'either'].includes(condition.name)) {
-        throw new Error(`Failed adding a condition. The conditions name must not be ${condition.name}.`);
-    }
     expectConditions[condition.name] = (compareVariable) => {
         if (!condition.condition(expectConditions.inputVariable, compareVariable) === true) {
             throw new Error(`Expected ${expectConditions.varName} ${condition.getFailureMessage(compareVariable)}`);
@@ -70,13 +67,6 @@ addExpectCondition({
         return inputVariable == compareVariable;
     },
     getFailureMessage: (compareVariable) => `to equal '${compareVariable}'`,
-});
-addExpectCondition({
-    name: 'toStrictlyEqual',
-    condition(inputVariable, compareVariable) {
-        return inputVariable === compareVariable;
-    },
-    getFailureMessage: (compareVariable) => `to strictly equal '${compareVariable}'`,
 });
 addExpectCondition({
     name: 'toBe',
@@ -121,7 +111,7 @@ addExpectCondition({
     getFailureMessage: () => 'to be positive',
 });
 addExpectCondition({
-    name: 'toBeEvent',
+    name: 'toBeEven',
     condition(inputVariable, compareVariable) {
         return inputVariable % 2 == 0;
     },
@@ -224,6 +214,13 @@ addExpectCondition({
         return inputVariable == null;
     },
     getFailureMessage: () => 'to be nullish',
+});
+addExpectCondition({
+    name: 'toBeTheLength',
+    condition(inputVariable, compareVariable) {
+        return inputVariable.length == compareVariable;
+    },
+    getFailureMessage: (compareVariable) => `to be the length of ${compareVariable}`,
 });
 // Export
 try {
