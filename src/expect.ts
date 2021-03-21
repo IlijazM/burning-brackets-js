@@ -199,6 +199,14 @@ addExpectCondition({
   getFailureMessage: () => 'to be a boolean',
 });
 
+addExpectCondition({
+  name: 'toBeTheLength',
+  condition(inputVariable: any, compareVariable: number) {
+    return inputVariable.length == compareVariable;
+  },
+  getFailureMessage: (compareVariable: number) => `to be the length of ${compareVariable}`,
+});
+
 // Export
 try {
   exports.expect = expect;
