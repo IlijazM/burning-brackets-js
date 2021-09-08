@@ -11,7 +11,7 @@
  *
  * @return the type of the variable.
  */
-function typeOf(variable: any): string {
+export default function typeOf(variable: any): string {
   // `typeof null` returns object by default which is inconvenient.
   // It should return 'null' instead.
   if (variable === null) {
@@ -33,6 +33,7 @@ function typeOf(variable: any): string {
   return typeof variable;
 }
 
+// Export it globally
 try {
-  exports.typeOf = typeOf;
+  window['typeOf'] = typeOf;
 } catch {}

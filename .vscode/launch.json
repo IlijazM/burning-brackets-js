@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "npm run dev",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "dev"
+            ],
+            "port": 5858
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "npm run test",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "test"
+            ],
+            "port": 5858
+        }
+    ],
+    "compounds": [
+        {
+            "name": "NYC/Mocha",
+            "configurations": [
+                "npm run test",
+            ]
+        }
+    ]
+}

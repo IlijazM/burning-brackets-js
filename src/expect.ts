@@ -100,7 +100,7 @@ let expectConditions: Record<string, any> = {
  *
  * @param variables the variables wrapped in a single object that gets asserted.
  */
-const expect = (variables: Record<string, any>) => {
+export default function expect(variables: Record<string, any>) {
   if (typeof variables !== 'object') {
     expectConditions.inputVariable = variables;
     expectConditions.varName = 'a variable';
@@ -116,7 +116,7 @@ const expect = (variables: Record<string, any>) => {
   }
 
   return expectConditions;
-};
+}
 
 /**
  * Adds an expect condition.
@@ -311,7 +311,7 @@ addExpectCondition({
   getFailureMessage: (compareVariable: number) => `to be the length of ${compareVariable}`,
 });
 
-// Export
+// Export it globally
 try {
-  exports.expect = expect;
+  window['expect'] = expect;
 } catch {}

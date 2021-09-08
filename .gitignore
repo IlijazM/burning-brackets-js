@@ -2,3 +2,5 @@ node_modules
 coverage
 build
 docs
+dist
+.nyc_output/
