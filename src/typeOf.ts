@@ -5,13 +5,23 @@
  */
 
 /**
- * Returns the type of a variable more conveniently that the default type of.
+ * Returns the type of a variable more conveniently that the default `typeof` function.
+ *
+ * <p>
+ * All changes in an overview are:
+ * </p>
+ *
+ * ```js
+ * typeOf(null) == "null";
+ * typeOf(MyClass) == "class";
+ * typeOf([]) == "array";
+ * ```
  *
  * @param variable any variable.
  *
  * @return the type of the variable.
  */
-export default function typeOf(variable: any): string {
+export function typeOf(variable: any): string {
   // `typeof null` returns object by default which is inconvenient.
   // It should return 'null' instead.
   if (variable === null) {

@@ -95,23 +95,35 @@ let expectConditions: Record<string, any> = {
 };
 
 /**
- * Asserts a variable with expect conditions. If the assert conditions fail, an error gets thrown,
+ * Asserts a variable with an `expect` statement. If the assert conditions fail, an error gets thrown,
  * explaining what assertion failed.
  *
- * @param variables the variables wrapped in a single object that gets asserted.
+ * <p>
+ * It tries to sound like a spoken assertion when e.g.:
+ * </p>
+ *
+ * ```js
+ * expect({ myVariable }).toBeNull();
+ * ```
+ *
+ * @param variable the variables wrapped in a single object that gets asserted or the variable it self.
+ *
+ * <p>
+ * This however will cause issues if you try to enter an object with excactly one key.
+ * </p>
  */
-export default function expect(variables: Record<string, any>) {
-  if (typeof variables !== 'object') {
-    expectConditions.inputVariable = variables;
+export function expect(variable: Record<string, any> | any) {
+  const keys = Object.keys(variable);
+
+  if (typeof variable !== 'object' || keys.length > 1) {
+    expectConditions.inputVariable = variable;
     expectConditions.varName = 'a variable';
   } else {
-    const keys = Object.keys(variables);
-
     if (keys.length <= 0) {
       throw new Error('Expected a variable. Got none');
     }
 
-    expectConditions.inputVariable = variables[keys[0]];
+    expectConditions.inputVariable = variable[keys[0]];
     expectConditions.varName = `'${keys[0]}'`;
   }
 
@@ -133,16 +145,12 @@ export default function expect(variables: Record<string, any>) {
 function addExpectCondition(condition: IExpectCondition) {
   expectConditions[condition.name] = (compareVariable: any) => {
     if (!condition.condition(expectConditions.inputVariable, compareVariable) === true) {
-      throw new Error(
-        `Expected ${expectConditions.varName} ${condition.getFailureMessage(compareVariable)}`
-      );
+      throw new Error(`Expected ${expectConditions.varName} ${condition.getFailureMessage(compareVariable)}`);
     }
   };
   expectConditions.not[condition.name] = (compareVariable: any) => {
     if (condition.condition(expectConditions.inputVariable, compareVariable) === true) {
-      throw new Error(
-        `Expected ${expectConditions.varName} not ${condition.getFailureMessage(compareVariable)}`
-      );
+      throw new Error(`Expected ${expectConditions.varName} not ${condition.getFailureMessage(compareVariable)}`);
     }
   };
 }
@@ -194,6 +202,13 @@ addExpectCondition({
   name: 'toBePositive',
   condition(inputVariable: any, compareVariable: any) {
     return inputVariable >= 0;
+  },
+  getFailureMessage: () => 'to be positive',
+});
+addExpectCondition({
+  name: 'toBeNegative',
+  condition(inputVariable: any, compareVariable: any) {
+    return inputVariable <= 0;
   },
   getFailureMessage: () => 'to be positive',
 });
