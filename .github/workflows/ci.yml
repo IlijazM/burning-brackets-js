@@ -92,7 +92,6 @@ jobs:
       uses: actions/download-artifact@v2
     - name: Commit update
       run: |
-        git restore --staged .
         git add docs
         git add dist
         git commit -m "Update $(date)"
