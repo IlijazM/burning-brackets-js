@@ -90,6 +90,10 @@ jobs:
         git config --local user.name "github-actions[bot]"
     - name: Download Artifacts
       uses: actions/download-artifact@v2
+    - name: Copy main files
+      run: |
+        cp -fv dist/main.js docs/burning-brackets.js
+        cp -fv dist/main.js docs/burning-brackets.min.js
     - name: Commit update
       run: |
         git add docs
@@ -100,4 +104,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: deploy
-
