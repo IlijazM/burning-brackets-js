@@ -1,4 +1,15 @@
 /**
+ * `expect` is helps you to validate you input by writing expressions that form
+ * an english phrase like:
+ *
+ * ```javascript
+ * expect({ myVariable }).toBeNull();
+ * ```
+ *
+ * @packageDocumentation
+ */
+
+/**
  * Defines how an expect condition should look like.
  */
 interface IExpectCondition {
@@ -18,7 +29,8 @@ interface IExpectCondition {
   /**
    * The condition.
    *
-   * @param inputVariable the value of the variable inputed in the expect function directly.
+   * @param inputVariable the value of the variable inputed in the expect
+   * function directly.
    *
    * <p>
    * The input variable occures right in the expect condition.
@@ -28,7 +40,8 @@ interface IExpectCondition {
    * expect({ theInputVariable })
    * ```
    *
-   * @param compareVariable the values of the variables inputed in the expect condition function.
+   * @param compareVariable the values of the variables inputed in the expect
+   * condition function.
    *
    * <p>
    * The input variable appears right here:
@@ -46,7 +59,8 @@ interface IExpectCondition {
    * The message that gets thrown when the expected condition doesn't occure.
    *
    * <p>
-   * The following possible prefixes that could get appended before the failure message:
+   * The following possible prefixes that could get appended before the failure
+   * message:
    * </p>
    *
    * <ul>
@@ -55,7 +69,8 @@ interface IExpectCondition {
    * </ul>
    *
    * <p>
-   * So your failure message should get prepared for this cases like this example:
+   * So your failure message should get prepared for this cases like this
+   * example:
    * </p>
    *
    * <pre>
@@ -63,7 +78,8 @@ interface IExpectCondition {
    * </pre>
    *
    * <p>
-   * Don't include a period at the end of the sentence. This will get generated automatically for you.
+   * Don't include a period at the end of the sentence. This will get generated
+   * automatically for you.
    * </p>
    *
    * @param compareValue the compare variable used in the condition.
@@ -74,8 +90,8 @@ interface IExpectCondition {
 }
 
 /**
- * Stores all expect conditions including the currently using variable value and the variables
- * name.
+ * Stores all expect conditions including the currently using variable value and
+ * the variables name.
  */
 let expectConditions: Record<string, any> = {
   /**
@@ -95,8 +111,8 @@ let expectConditions: Record<string, any> = {
 };
 
 /**
- * Asserts a variable with an `expect` statement. If the assert conditions fail, an error gets thrown,
- * explaining what assertion failed.
+ * Asserts a variable with an `expect` statement. If the assert conditions fail,
+ * an error gets thrown, explaining what assertion failed.
  *
  * <p>
  * It tries to sound like a spoken assertion when e.g.:
@@ -106,10 +122,12 @@ let expectConditions: Record<string, any> = {
  * expect({ myVariable }).toBeNull();
  * ```
  *
- * @param variable the variables wrapped in a single object that gets asserted or the variable it self.
+ * @param variable the variables wrapped in a single object that gets asserted
+ * or the variable it self.
  *
  * <p>
- * This however will cause issues if you try to enter an object with excactly one key.
+ * This however will cause issues if you try to enter an object with exactly
+ * one key.
  * </p>
  */
 export function expect(variable: Record<string, any> | any) {
@@ -138,7 +156,8 @@ export function expect(variable: Record<string, any> | any) {
  * </p>
  *
  * @requires condition to not be null
- * @requires condition to not have a name that is set in `expectConditions` already.
+ * @requires condition to not have a name that is set in `expectConditions`
+ * already.
  *
  * @param condition the expect condition to add.
  */
