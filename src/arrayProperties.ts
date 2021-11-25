@@ -47,7 +47,7 @@
  *
  * ## Get safe
  *
- * `array.getSafe` returns the element in an array with the given index or null,
+ * `array.getSafe(i)` returns the element in an array with the given index or null,
  * if the given index is out of bounce. This has the benefit, that it doesn't
  * throw any exception when entering an invalid index.
  *
@@ -55,6 +55,26 @@
  *
  * ```javascript
  * ['foo', 'bar', 'baz'].getSafe(3); // null
+ * ```
+ *
+ * ## To set
+ *
+ * `array.toSet()` removes all duplicates from the array.
+ *
+ * Usage:
+ *
+ * ```javascript
+ * ['foo', 'bar', 'foo'].toSet(); // ['foo', 'bar']
+ * ```
+ *
+ * ## Shuffle
+ *
+ * `array.shuffled` returns the array but shuffled randomly.
+ *
+ * Usage:
+ *
+ * ```javascript
+ * ['foo', 'bar', 'baz'].shuffled; // ['bar', 'foo', 'baz']
  * ```
  *
  * @packageDocumentation
@@ -136,9 +156,50 @@ Array.prototype.getSafe = function (index: number) {
   return this[index];
 };
 
+/**
+ * Removes all duplicates from an array.
+ *
+ * Usage:
+ *
+ * ```javascript
+ * ['foo', 'bar', 'foo'].toSet(); // ['foo', 'bar']
+ * ```
+ */
+Array.prototype.toSet = function () {
+  return [...new Set(this)];
+};
+
+/**
+ * Shuffles the array randomly.
+ *
+ * Usage:
+ *
+ * ```javascript
+ * ['foo', 'bar', 'baz'].shuffled; // ['bar', 'foo', 'baz']
+ * ```
+ */
+Object.defineProperty(Array.prototype, 'shuffled', {
+  get: function () {
+    const array = [...this];
+
+    let currentIndex = array.length;
+    let randomIndex;
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+  },
+});
+
 interface Array<T> {
   first: T;
   last: T;
   random: T;
+  toSet: () => Array<T>;
+  shuffled: Array<T>;
   getSafe: (index: number) => T | null;
 }

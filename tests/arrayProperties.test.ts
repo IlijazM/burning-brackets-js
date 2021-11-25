@@ -38,4 +38,21 @@ class ArrayPropertiesTest {
   randomOnEmptyArray() {
     expect([].random).to.be.undefined;
   }
+
+  @test('array.toSet should remove all duplicates')
+  toSet() {
+    expect(['foo', 'bar', 'foo'].toSet()).to.deep.equal(['foo', 'bar']);
+    expect([].toSet()).to.deep.equal([]);
+  }
+
+  @test('array.shuffled shuffles the array randomly')
+  shuffled() {
+    const array = ['foo', 'bar', 'baz'];
+    for (let i = 0; i < 20; i++) {
+      const shuffledArray = array.shuffled;
+      expect(shuffledArray.length).to.equal(array.length);
+    }
+
+    expect([].shuffled).to.deep.equal([]);
+  }
 }
