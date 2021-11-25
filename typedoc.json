@@ -1,0 +1,9 @@
+{
+  "name": "🔥 burning-brackets.js 🔥",
+  "exclude": "**/index.ts",
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "disableSources": true
+}
